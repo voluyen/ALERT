@@ -1,0 +1,43 @@
+*.pdf
+.venv/
+.venv-eval/
+__pycache__/
+*.pyc
+/data/
+/checkpoints/
+# result tables / summary.json are tracked; raw generations are not
+raw/
+/results/plots/*.tmp
+/results-*/
+*.npz
+*.pt
+*.parquet
+.pytest_cache/
+
+
+# Reference clones (external code, not part of this repo) -- each has its own .git, so
+# tracking them here would create a broken gitlink instead of their actual files.
+Pru-CoT/
+ThoughtFold/
+
+# transient run log at repo root (logs/ dir is already ignored)
+logs-data-prep.txt
+/_data/
+/_models/
+
+# root-level run logs and model weights
+*.safetensors
+*.bin
+*.zip
+!/paper/paper_overleaf.zip
+
+.DS_Store
+
+*.whl
+
+# run outputs
+/results/
+/results_evalseed/
+/logs/
+/docs/
+

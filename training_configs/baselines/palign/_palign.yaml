@@ -1,0 +1,13 @@
+family: palign
+name: palign
+run_name: palign-${model.key}${run_suffix}
+run_suffix: ""
+train_variant: vanilla
+pipeline: [prepare, vanilla, train, eval]
+stages:
+  train:
+    args:
+      objective: nll
+      min-learning-rate: 0.0
+      logging-steps: 1
+      save-total-limit: null

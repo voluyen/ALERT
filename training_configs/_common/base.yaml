@@ -1,0 +1,8 @@
+family: answergain
+run:
+  gpus: [0]
+  log_dir: logs
+data_dir: data/${track}
+run_name: ${name}-${track}
+checkpoint: checkpoints/${run_name}
+train_seed: 42

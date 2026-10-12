@@ -1,0 +1,11 @@
+defaults:
+  - ../../_common/base.yaml
+  - ../../_common/models/qwen3-8b.yaml
+  - _released-data.yaml
+  - _lora.yaml
+  - ../../_common/eval/palign-protocol.yaml
+  - _palign.yaml
+  - _reference.yaml
+run_suffix: -lora
+stop_suffix: "\n"
+reference_config: configs/qwen3_8b_palign_sft.yaml

@@ -1,0 +1,7 @@
+defaults: [../_tracks/r1-qwen-1.5b-s1k.yaml, ../_methods/sft.yaml]
+name: vanilla
+stages:
+  train:
+    args:
+      min-learning-rate: 0
+      deepspeed-config: null

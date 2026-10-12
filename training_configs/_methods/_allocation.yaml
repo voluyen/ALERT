@@ -1,0 +1,23 @@
+allocation:
+  variant: answer-gain
+  energy_threshold_p: 1.0
+  temperature: 2.0
+  interpolation: 0.5
+  clip: 2.0
+  epsilon: 1.0e-8
+  seed: 42
+stages:
+  weights:
+    module: answergain.allocation.build
+    creates: ${data_dir}/train-${train_variant}.jsonl
+    args:
+      data-path: ${data_dir}/train-segmented.jsonl
+      strengths: ${signal_parquet}
+      variants: ${allocation.variant}
+      energy-threshold-p: ${allocation.energy_threshold_p}
+      temperature: ${allocation.temperature}
+      interpolation: ${allocation.interpolation}
+      clip: ${allocation.clip}
+      seed: ${allocation.seed}
+      output-name: ${train_variant}
+      check-mass: true

@@ -1,0 +1,2 @@
+defaults: [../_tracks/qwen3-8b-s1k.yaml, ../_methods/sft.yaml]
+name: vanilla

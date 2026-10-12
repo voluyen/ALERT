@@ -1,0 +1,16 @@
+junction_tokens: 0
+train_variant: dft_sources
+pipeline: [prepare, vanilla, dft_sources, train, eval]
+stages:
+  dft_sources:
+    module: answergain.data.dft_sources
+    creates: ${data_dir}/train-${train_variant}.jsonl
+    args:
+      data-dir: ${data_dir}
+      tokenizer: ${model.name}
+      junction-tokens: ${junction_tokens}
+      output-name: train-${train_variant}.jsonl
+  train:
+    args:
+      prefix-objective: nll
+      cont-objective: dft

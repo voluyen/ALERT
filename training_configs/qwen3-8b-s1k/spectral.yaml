@@ -1,0 +1,7 @@
+defaults: [../_tracks/qwen3-8b-s1k.yaml, ../_methods/answergain-spectral.yaml]
+name: spectral
+stages:
+  train:
+    args:
+      save-total-limit: 6
+      save-steps: 500

@@ -1,0 +1,22 @@
+stages:
+  reference_data:
+    module: answergain.data.palign_download
+    creates: data/palign-reference/dataset_info.json
+    args:
+      output-dir: data/palign-reference
+  train_reference:
+    script: src/train.py
+    cwd: references/P-ALIGN
+    launcher: torchrun
+    creates: checkpoints/${run_name}-llamafactory/config.json
+    positional:
+      - ${reference_config}
+      - dataset_dir=../../data/palign-reference
+      - dataset=palign_hf
+      - model_name_or_path=${model.name}
+      - output_dir=../../checkpoints/${run_name}-llamafactory
+      - gradient_accumulation_steps=32
+      - seed=${train_seed}
+    env:
+      DISABLE_VERSION_CHECK: "1"
+      WANDB_DISABLED: "true"

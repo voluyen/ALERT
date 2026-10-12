@@ -1,0 +1,17 @@
+defaults: [../_tracks/r1-qwen-1.5b-palign.yaml, ../_methods/ablation-alg.yaml]
+name: e5-alg-no-answer-upweight
+pipeline: [prepare, answer_gain, gain_signal, answer_only, weights, train, eval]
+allocation:
+  variant: answer-gain-no-answer-upweight
+stages:
+  answer_only:
+    module: answergain.signals.answer_only
+    creates: ${answer_only_labels}
+    args:
+      data-path: ${data_dir}/train-segmented.jsonl
+      tokenizer: ${model.name}
+      output: ${answer_only_labels}
+      audit-output: ${answer_only_audit}
+  weights:
+    args:
+      answer-only-labels: ${answer_only_labels}

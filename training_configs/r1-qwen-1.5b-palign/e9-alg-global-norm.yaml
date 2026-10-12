@@ -1,0 +1,5 @@
+defaults: [../_tracks/r1-qwen-1.5b-palign.yaml, ../_methods/ablation-alg.yaml]
+name: e9-alg-global-norm
+allocation:
+  variant: answer-gain-global
+  temperature: 1.0

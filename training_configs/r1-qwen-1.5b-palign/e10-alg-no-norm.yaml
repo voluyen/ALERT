@@ -1,0 +1,5 @@
+defaults: [../_tracks/r1-qwen-1.5b-palign.yaml, ../_methods/ablation-alg.yaml]
+name: e10-alg-no-norm
+allocation:
+  variant: answer-gain-none
+  temperature: 1.0

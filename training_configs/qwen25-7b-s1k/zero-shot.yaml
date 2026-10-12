@@ -1,0 +1,5 @@
+defaults: [../_tracks/qwen25-7b-s1k.yaml]
+name: zero-shot
+checkpoint: ${model.name}
+pipeline: [eval]
+lora_adapter: false

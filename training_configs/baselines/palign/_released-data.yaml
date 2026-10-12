@@ -1,0 +1,1 @@
+defaults: [../../_common/data/palign-966.yaml, _llamafactory-format.yaml]

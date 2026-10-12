@@ -1,0 +1,7 @@
+defaults:
+  - ../_common/base.yaml
+  - ../_common/models/r1-qwen-1.5b.yaml
+  - ../_common/data/palign-966.yaml
+  - ../_common/train/full-ds-z2.yaml
+  - ../_common/eval/palign-protocol.yaml
+track: r1-qwen-1.5b-palign

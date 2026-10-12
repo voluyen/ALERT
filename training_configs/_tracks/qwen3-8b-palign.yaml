@@ -1,0 +1,12 @@
+defaults:
+  - ../_common/base.yaml
+  - ../_common/models/qwen3-8b.yaml
+  - ../_common/data/palign-966.yaml
+  - ../_common/train/lora-r16.yaml
+  - ../_common/eval/palign-protocol.yaml
+track: qwen3-8b-palign
+lora_adapter: true
+stages:
+  eval:
+    args:
+      gpu-memory-utilization: 0.5

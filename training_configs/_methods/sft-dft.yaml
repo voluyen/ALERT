@@ -1,0 +1,5 @@
+defaults: [sft.yaml]
+stages:
+  train:
+    args:
+      objective: dft

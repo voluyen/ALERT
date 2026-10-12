@@ -1,0 +1,20 @@
+defaults: [_allocation.yaml, _answer_gain_ablation_paths.yaml]
+signal_parquet: ${answer_gain_signal}
+train_variant: ${name}
+pipeline: [prepare, answer_gain, gain_signal, weights, train, eval]
+stages:
+  answer_gain:
+    module: answergain.signals.answer_gain
+    creates: ${answer_gain_scores}
+    args:
+      data-path: ${data_dir}/train-segmented.jsonl
+      model: ${model.name}
+      output: ${answer_gain_scores}
+      gpu-memory-utilization: 0.4
+  gain_signal:
+    module: answergain.signals.gain_parquet
+    creates: ${answer_gain_signal}
+    args:
+      data-path: ${data_dir}/train-segmented.jsonl
+      gains: ${answer_gain_scores}
+      output: ${answer_gain_signal}

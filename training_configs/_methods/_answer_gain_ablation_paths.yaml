@@ -1,0 +1,12 @@
+ablation_dir: experiments/answer_gain
+answer_gain_scores: ${ablation_dir}/scores/answer_gain.json
+predictability_scores: ${ablation_dir}/scores/predictability_logp.json
+hard_scores: ${ablation_dir}/scores/predictability_hard.json
+random_scores: ${ablation_dir}/scores/shuffled_answer_gain_seed42.json
+random_permutations: ${ablation_dir}/scores/shuffled_answer_gain_seed42_permutations.json
+answer_only_labels: ${ablation_dir}/scores/answer_only_labels.json
+answer_only_audit: ${ablation_dir}/scores/answer_only_audit.csv
+answer_gain_signal: ${ablation_dir}/scores/signal_answer_gain.parquet
+predictability_signal: ${ablation_dir}/scores/signal_predictability_easy.parquet
+hard_signal: ${ablation_dir}/scores/signal_predictability_hard.parquet
+random_signal: ${ablation_dir}/scores/signal_random_assignment.parquet

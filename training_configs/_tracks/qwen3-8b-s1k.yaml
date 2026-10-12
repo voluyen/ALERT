@@ -1,0 +1,21 @@
+defaults:
+  - ../_common/base.yaml
+  - ../_common/models/qwen3-8b.yaml
+  - ../_common/data/s1k.yaml
+  - ../_common/train/lora-r16.yaml
+  - ../_common/eval/palign-protocol.yaml
+track: qwen3-8b
+lora_adapter: true
+run:
+  gpus: [0, 1]
+stages:
+  prepare:
+    args:
+      enable-thinking: false
+  train:
+    effective_batch: null
+    args:
+      gradient-accumulation-steps: 16
+      lora-alpha: 32
+      save-total-limit: 6
+      save-steps: 500

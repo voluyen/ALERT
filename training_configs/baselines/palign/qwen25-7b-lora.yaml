@@ -1,0 +1,9 @@
+defaults:
+  - ../../_common/base.yaml
+  - ../../_common/models/qwen25-7b.yaml
+  - _released-data.yaml
+  - _lora.yaml
+  - ../../_common/eval/palign-protocol.yaml
+  - _palign.yaml
+run_suffix: -lora
+stop_suffix: "\n"

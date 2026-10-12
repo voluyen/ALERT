@@ -1,0 +1,6 @@
+defaults: [../../_common/train/full-ds-z2.yaml]
+stages:
+  train:
+    args:
+      deepspeed-config: null
+      model-dtype: float32

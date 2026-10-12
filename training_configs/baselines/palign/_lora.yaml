@@ -1,0 +1,9 @@
+defaults: [../../_common/train/lora-r16.yaml]
+stages:
+  train:
+    args:
+      deepspeed-config: null
+      lora-merge: true
+  eval:
+    args:
+      gpu-memory-utilization: 0.5

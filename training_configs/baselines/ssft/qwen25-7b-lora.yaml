@@ -1,0 +1,23 @@
+defaults:
+  - ../../_common/base.yaml
+  - ../../_common/models/qwen25-7b.yaml
+  - ../../_common/train/lora-r16.yaml
+  - ../../_common/eval/palign-protocol.yaml
+  - _ssft.yaml
+run_suffix: -lora
+prompt_style: palign
+stages:
+  train:
+    args:
+      deepspeed-config: null
+      lora-r: 64
+      lora-alpha: 64
+      lora-merge: true
+  eval:
+    args:
+      gpu-memory-utilization: 0.5
+  train_reference:
+    args:
+      lora_r: 64
+      lora_alpha: 64
+      lora_dropout: 0.05

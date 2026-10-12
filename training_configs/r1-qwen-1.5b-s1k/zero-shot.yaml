@@ -1,0 +1,4 @@
+defaults: [../_tracks/r1-qwen-1.5b-s1k.yaml]
+name: zero-shot
+checkpoint: ${model.name}
+pipeline: [eval]

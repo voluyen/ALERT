@@ -1,0 +1,7 @@
+defaults: [dft-continuation.yaml]
+junction_tokens: 8
+train_variant: dft_sources-j8
+stages:
+  train:
+    args:
+      junction-objective: nll

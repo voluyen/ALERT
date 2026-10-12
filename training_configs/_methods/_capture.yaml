@@ -1,0 +1,12 @@
+stages:
+  capture:
+    module: answergain.signals.capture
+    creates: ${data_dir}/spectral-strengths.parquet
+    args:
+      model-name: ${model.name}
+      data-path: ${data_dir}/train-segmented.jsonl
+      output-dir: ${data_dir}/spectral
+      strengths-path: ${data_dir}/spectral-strengths.parquet
+      energy-cutoff: 0.95
+      chunk-size: 1024
+      verify: true

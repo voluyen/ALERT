@@ -1,0 +1,6 @@
+train_variant: vanilla
+pipeline: [prepare, vanilla, train, eval]
+stages:
+  train:
+    args:
+      objective: nll

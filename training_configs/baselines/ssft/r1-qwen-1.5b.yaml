@@ -1,0 +1,20 @@
+defaults:
+  - ../../_common/base.yaml
+  - ../../_common/models/r1-qwen-1.5b.yaml
+  - ../../_common/train/full-ds-z2.yaml
+  - ../../_common/eval/palign-protocol.yaml
+  - _ssft.yaml
+prompt_style: palign
+think_prefix: off
+stages:
+  build:
+    args:
+      deepseek: true
+  train:
+    args:
+      deepspeed-config: null
+      model-dtype: float32
+  train_reference:
+    args:
+      deepseek: true
+      full_finetune: true

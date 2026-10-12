@@ -1,0 +1,1 @@
+defaults: [qwen25-7b-lora.yaml, ../../_common/models/qwen3-8b.yaml]

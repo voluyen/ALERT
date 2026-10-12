@@ -1,0 +1,6 @@
+defaults: [dft-continuation.yaml]
+stages:
+  train:
+    args:
+      prefix-objective: dft
+      cont-objective: nll

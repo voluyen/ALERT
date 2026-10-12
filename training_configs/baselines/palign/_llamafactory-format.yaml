@@ -1,0 +1,7 @@
+track: palign-${model.key}
+stop_suffix: ""
+stages:
+  prepare:
+    args:
+      instruction-separator: "\n"
+      stop-suffix: ${stop_suffix}

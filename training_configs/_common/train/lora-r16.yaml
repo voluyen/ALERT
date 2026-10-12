@@ -1,0 +1,11 @@
+defaults: [full-ds-z2.yaml]
+stages:
+  train:
+    args:
+      model-dtype: bfloat16
+      use-lora: true
+      lora-r: 16
+      lora-alpha: 16
+      lora-dropout: 0.05
+      lora-target-modules: q_proj,k_proj,v_proj,o_proj,gate_proj,up_proj,down_proj
+      lora-merge: false

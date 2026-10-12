@@ -1,0 +1,2 @@
+defaults: [../_tracks/r1-qwen-1.5b-palign.yaml, ../_methods/sft.yaml, ../_methods/_answer_gain_ablation_paths.yaml]
+name: e0-uniform

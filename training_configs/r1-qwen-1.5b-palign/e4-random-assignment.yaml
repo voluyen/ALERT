@@ -1,0 +1,26 @@
+defaults: [../_tracks/r1-qwen-1.5b-palign.yaml, ../_methods/ablation-alg.yaml]
+name: e4-random-assignment
+signal_parquet: ${random_signal}
+pipeline: [prepare, answer_gain, score_transform, gain_signal, weights, train, eval]
+stages:
+  score_analysis:
+    module: answergain.signals.score_analysis
+    creates: ${ablation_dir}/results/score_analysis.csv
+    args:
+      answer-gain: ${answer_gain_scores}
+      predictability: ${predictability_scores}
+      output-dir: ${ablation_dir}/results
+  score_transform:
+    module: answergain.signals.score_transform
+    creates: ${random_scores}
+    args:
+      input: ${answer_gain_scores}
+      output: ${random_scores}
+      mode: shuffle
+      seed: 42
+      permutations-output: ${random_permutations}
+  gain_signal:
+    creates: ${random_signal}
+    args:
+      gains: ${random_scores}
+      output: ${random_signal}

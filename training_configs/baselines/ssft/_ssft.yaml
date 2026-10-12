@@ -1,0 +1,87 @@
+family: ssft
+name: ssft
+run_name: ssft-${model.key}${run_suffix}
+run_suffix: ""
+track: ${model.key}-ssft
+segment_mode: paragraph
+build_dir: data/ssft-s1k-${segment_mode}
+attribution_model: deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
+selective: true
+prompt_style: default
+think_prefix: none
+train_seed: 3407
+train_variant: ssft
+pipeline: [traces, attribution, select, build, train, eval]
+stages:
+  traces:
+    module: answergain.data.s1k
+    creates: ${build_dir}/train.jsonl
+    args:
+      dataset: baesad/s1K-1.1-deepseek-cot
+      trace-field: deepseek_thinking_trajectory
+      answer-source: trace
+      max-answer-chars: 200
+      segment-mode: ${segment_mode}
+      output: ${build_dir}/train.jsonl
+  attribution:
+    module: answergain.ssft.attribution
+    creates: ${build_dir}/ig_compact.jsonl
+    gpus: ${run.gpus}
+    args:
+      model: ${attribution_model}
+      data-path: ${build_dir}/train.jsonl
+      output: ${build_dir}/ig_compact.jsonl
+      ig-steps: 20
+      ig-batch-size: 4
+      gradient-checkpointing: true
+  select:
+    module: answergain.ssft.select
+    creates: ${build_dir}/selected.jsonl
+    args:
+      data-path: ${build_dir}/train.jsonl
+      ig: ${build_dir}/ig_compact.jsonl
+      output: ${build_dir}/selected.jsonl
+      cumulative-ratio: 0.7
+      coherence-max: 0.8
+  build:
+    module: answergain.ssft.build
+    creates: ${data_dir}/train-${train_variant}.jsonl
+    args:
+      data-path: ${build_dir}/selected.jsonl
+      tokenizer: ${model.name}
+      output: ${data_dir}/train-${train_variant}.jsonl
+      selective: ${selective}
+      prompt-style: ${prompt_style}
+      think-prefix: ${think_prefix}
+      segment-mode: ${segment_mode}
+      max-seq-length: 32768
+  train:
+    args:
+      min-learning-rate: 0.0
+      logging-steps: 1
+      save-total-limit: 3
+      objective: nll
+  train_reference:
+    script: train_mask.py
+    cwd: references/SegmentSelectiveSFT/SelectiveSFT
+    raw_keys: true
+    creates: checkpoints/${run_name}-unsloth
+    args:
+      model_name_or_path: ${model.name}
+      data_names: ../../../${build_dir}/selected.jsonl
+      output_dir: ../../../checkpoints/${run_name}-unsloth
+      epochs: 3
+      learning_rate: 5.0e-5
+      max_seq_length: 32768
+      per_device_train_batch_size: 1
+      gradient_accumulation_steps: 32
+      optim: adamw_torch
+      weight_decay: 0.0
+      lr_scheduler_type: cosine
+      warmup_ratio: 0.1
+      seed: ${train_seed}
+      segment_mode: ${segment_mode}
+      prompt_style: ${prompt_style}
+      think_prefix: ${think_prefix}
+      mask: ${selective}
+      apply_all: ${selective}

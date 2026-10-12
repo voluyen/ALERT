@@ -1,0 +1,17 @@
+defaults: [../_tracks/r1-qwen-1.5b-palign.yaml, ../_methods/ablation-predictability.yaml]
+name: e3-predictability-hard
+signal_parquet: ${hard_signal}
+pipeline: [prepare, predictability, score_transform, score_signal, weights, train, eval]
+stages:
+  score_transform:
+    module: answergain.signals.score_transform
+    creates: ${hard_scores}
+    args:
+      input: ${predictability_scores}
+      output: ${hard_scores}
+      mode: negate
+  score_signal:
+    creates: ${hard_signal}
+    args:
+      gains: ${hard_scores}
+      output: ${hard_signal}

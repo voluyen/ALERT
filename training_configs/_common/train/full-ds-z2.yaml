@@ -1,0 +1,24 @@
+train_variant: vanilla
+stages:
+  train:
+    module: answergain.training.train
+    launcher: torchrun
+    effective_batch: 32
+    creates: ${checkpoint}/run-summary.json
+    args:
+      model-name: ${model.name}
+      data-path: ${data_dir}/train-${train_variant}.jsonl
+      output-dir: ${checkpoint}
+      epochs: 3
+      learning-rate: 5.0e-5
+      min-learning-rate: 1.0e-5
+      warmup-ratio: 0.1
+      per-device-batch-size: 1
+      attn-implementation: sdpa
+      logging-steps: 5
+      save-strategy: epoch
+      save-total-limit: 2
+      seed: ${train_seed}
+      max-seq-len: 32768
+      use-lora: false
+      deepspeed-config: accelerate_configs/ds_config_zero2_offload.json
